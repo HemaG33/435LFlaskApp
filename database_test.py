@@ -2,7 +2,7 @@ import sqlite3
 
 
 def connect_to_db():
- conn = sqlite3.connect('database.db')
+ conn = sqlite3.connect('test_database.db')
  return conn
 
 def create_db_table():
@@ -25,7 +25,7 @@ def create_db_table():
  finally:
      conn.close()
 
-def insert_user(user, conn):
+def insert_user(user):
  inserted_user = {}
  try:
     conn = connect_to_db()
@@ -35,7 +35,7 @@ def insert_user(user, conn):
     user['email'], user['phone'], user['address'],
     user['country']) )
     conn.commit()
-    inserted_user = get_user_by_id(cur.lastrowid,conn)
+    inserted_user = get_user_by_id(cur.lastrowid)
  except:
     conn().rollback()
 
@@ -54,7 +54,7 @@ user = {
 }
 
 
-def get_users(conn):
+def get_users():
  users = []
  try:
     conn = connect_to_db()
@@ -79,7 +79,7 @@ def get_users(conn):
  return users
 
 
-def get_user_by_id(user_id, conn):
+def get_user_by_id(user_id):
  user = {}
  try:
     conn = connect_to_db()
@@ -102,7 +102,7 @@ def get_user_by_id(user_id, conn):
  return user
 
 
-def update_user(user, conn):
+def update_user(user):
  updated_user = {}
  try:
     conn = connect_to_db()
@@ -113,7 +113,7 @@ def update_user(user, conn):
     user["user_id"],))
     conn.commit()
     #return the user
-    updated_user = get_user_by_id(user["user_id"],conn)
+    updated_user = get_user_by_id(user["user_id"])
 
  except:
     conn.rollback()
@@ -124,7 +124,7 @@ def update_user(user, conn):
  return updated_user
 
 
-def delete_user(user_id, conn):
+def delete_user(user_id):
  message = {}
  try:
     conn = connect_to_db()
